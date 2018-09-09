@@ -7,14 +7,14 @@ import time
 message = ['The value is greater than your guess.\n', 'The value is less than your guess.\n']
 result = message[0]
 
-min = sys.maxint * (-1) - 1
+min = sys.maxint * (-1) -1
 max = sys.maxint
 
 start_time = time.time()
 while result in message:
     num = random.randrange(min, max+1)
     print num
-    result = subprocess.check_output('python __main__.pyc {}'.format(num), shell=True)
+    result = subprocess.check_output(['python', '__main__.pyc', str(num)])
     if result==message[0]:
         min = num + 1
     else:
