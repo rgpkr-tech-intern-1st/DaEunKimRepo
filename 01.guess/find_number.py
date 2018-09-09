@@ -2,7 +2,7 @@ import random
 import subprocess
 import sys
 import time
-import datetime
+
 
 message = ['The value is greater than your guess.\n', 'The value is less than your guess.\n']
 result = message[0]
