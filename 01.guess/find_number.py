@@ -7,7 +7,7 @@ import time
 message = ['The value is greater than your guess.\n', 'The value is less than your guess.\n']
 result = message[0]
 
-min = sys.maxint * (-1)
+min = sys.maxint * (-1) - 1
 max = sys.maxint
 
 start_time = time.time()
