@@ -5,12 +5,11 @@ import time
 
 def find(min_, max_):
     num = (min_ + max_) / 2
-    print num
     result = subprocess.check_output(['python', 'guess.zip', str(num)])
     if 'greater' in result:
-        return find(num+1, max_)
+        return find(num + 1, max_)
     elif 'less' in result:
-        return find(min_, num-1)
+        return find(min_, num - 1)
     else:
         return num
 
