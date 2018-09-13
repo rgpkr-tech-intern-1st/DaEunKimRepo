@@ -20,7 +20,7 @@ class TestFindNumber(unittest.TestCase):
 
         # THEN:
         # it should return True when the result is equal to the answer.
-        self.assertTrue(result, answer)
+        self.assertEqual(result, answer)
 
     def test_count_should_return_True_when_range_and_function_are_given(self):
         # GIVEN:
@@ -40,7 +40,7 @@ class TestFindNumber(unittest.TestCase):
         # it should return find's running time as float greater or equal to 0.
         self.assertIsInstance(num, types.IntType)
         self.assertIsInstance(time_, types.FloatType)
-        self.assertTrue(time_ >= 0)
+        self.assertGreaterEqual(time_, 0)
 
 
 if __name__ == '__main__':
