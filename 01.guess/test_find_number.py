@@ -1,10 +1,10 @@
 import unittest
 import sys
-import types
 import find_number as fn
 
 
 class TestFindNumber(unittest.TestCase):
+
     def test_find_should_return_True_when_range_and_answer_are_given(self):
         # GIVEN:
         # min_ is minimum of integer.
@@ -38,8 +38,8 @@ class TestFindNumber(unittest.TestCase):
         # THEN:
         # it should return find's result as integer.
         # it should return find's running time as float greater or equal to 0.
-        self.assertIsInstance(num, types.IntType)
-        self.assertIsInstance(time_, types.FloatType)
+        self.assertIsInstance(num, int)
+        self.assertIsInstance(time_, float)
         self.assertGreaterEqual(time_, 0)
 
 
