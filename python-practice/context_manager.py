@@ -31,7 +31,7 @@ class Human:
         name is {1}.
         age is {2}.
         '''
-        pass
+        print(self.get_info.__doc__.format(type(self), self.name, self.age))
 
 
 class Person(Human):
@@ -46,7 +46,7 @@ def with_no_exception():
     '''
     with Human() as human:
         print(with_no_exception.__doc__)
-        print(human.get_info.__doc__.format(type(human), human.name, human.age))
+        human.get_info()
 
 
 def with_exception():
@@ -56,21 +56,21 @@ def with_exception():
     '''
     with Person('jadu', 1) as person:
         print(with_exception.__doc__)
-        print(person.get_info.__doc__.format(type(person), person.name, person.age))
+        person.get_info()
         raise Exception('exception raises!')
 
 
 def with_nested():
     with Human() as kde:
-        print(kde.get_info.__doc__.format(type(kde), kde.name, kde.age))
+        kde.get_info()
         with Person('jadu', 1) as jadu:
-            print(jadu.get_info.__doc__.format(type(jadu), jadu.name, jadu.age))
+            jadu.get_info()
             raise Exception('exception raises again!')
 
 
 print('---------------------- with문의 동작 ---------------------')
 with_no_exception()
 print('-------------- with문에 Exception이 발생할 때 --------------')
-with_exception()
+# with_exception()
 print('------------------ with문이 중첩될 때 ---------------------')
 with_nested()
