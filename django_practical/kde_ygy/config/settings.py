@@ -14,7 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates'),
+COMMON_TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates'),
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -29,18 +29,18 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# 우선순위 : 아래에서 위로.
 INSTALLED_APPS = [
+    'restaurant.apps.RestaurantConfig',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'restaurant',
+    'django.contrib.humanize',
 ]
-
 # middlewares do some stuff beween request/response and view functions.
 # request -> middlewares -> view function(httpRequest, httpResponse) -> middlewares -> response
 MIDDLEWARE = [
@@ -55,11 +55,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+
+# 템플릿을 찾을 때 APP_DIRS 가 True로 셋팅된 DjangoTemplates을 먼저 탐색한다.
+# 그 다음에 각 애플리케이션들의 template 디렉토리를 탐색한다.
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            TEMPLATES_DIR,
+            COMMON_TEMPLATES_DIR,
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -145,3 +148,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+GEOIP_PATH = os.path.join(BASE_DIR, 'utilities', 'geo_country')
