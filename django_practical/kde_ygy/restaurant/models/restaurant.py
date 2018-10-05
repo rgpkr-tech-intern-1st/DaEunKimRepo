@@ -26,7 +26,8 @@ class Restaurant(models.Model):
         null=False,
         default='미기입',
     )
-    postal_code = models.PositiveIntegerField(
+    postal_code = models.CharField(
+        max_length=10,
         null=False,
     )
     minimum_order_price = models.PositiveSmallIntegerField(
