@@ -48,4 +48,4 @@ class Restaurant(models.Model):
         verbose_name_plural = 'Restaurants'
 
     def __str__(self):
-        return f'{self.name}({self.dish_category}) - 최소주문금액 {self.minimum_order_price}'
+        return f'{self.name}({self.category}) - 최소주문금액 {self.minimum_order_price}'

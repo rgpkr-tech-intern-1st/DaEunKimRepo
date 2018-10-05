@@ -1,2 +1,1 @@
-from .restaurant import Restaurant
-from .category import Category
+from .restaurant import Category, Restaurant
