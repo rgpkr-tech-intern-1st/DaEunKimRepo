@@ -1,0 +1,23 @@
+{% load humanize %}
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>restaurant list</h1>
+{% if restaurants %}
+<ul>
+    {% for restaurant in restaurants %}
+    <a href="{% url 'detail' pk=restaurant.id %}">
+        <li>
+            <strong>{{ restaurant.name }}</strong> 최소주문금액 : {{ restaurant.minimum_order_price|intcomma }}
+        </li>
+    </a>
+    {% endfor %}
+</ul>
+{% else %}
+<h3>주문가능한 음식점이 제공되지 않는 지역입니다.</h3>
+{% endif %}
+</body>
+</html>
