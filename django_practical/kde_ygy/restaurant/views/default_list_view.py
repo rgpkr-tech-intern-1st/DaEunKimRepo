@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.views.generic.list import ListView
 from django.utils import timezone
 
@@ -12,12 +13,10 @@ class DefaultListView(ListView):
     # TODO : internal server error 예외처리 개선
     def get_queryset(self):
         try:
-            current_time = timezone.localtime()
-            orderable_time = current_time + timezone.timedelta(hours=1)
+            present_time = timezone.localtime().strftime('%H:%M:%S')
             qs = self.model.objects.filter(
-                open_time__lte=current_time.strftime('%H:%M:%S'),
-                close_time__gt=orderable_time.strftime('%H:%M:%S'),
-                address__startswith=self.kwargs['region'],
+                open_time__lte=present_time,
+                close_time__gt=present_time,
                 postal_code=self.kwargs['postal_code'],
             )
         except Exception as err:
