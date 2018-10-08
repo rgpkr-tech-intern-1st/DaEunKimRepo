@@ -6,13 +6,6 @@ from ..models import Restaurant
 
 
 class RestaurantDefaultListViewTests(TestCase):
-    @classmethod
-    def get_later_time(cls, now):
-        return (now + timezone.timedelta(minutes=1)).strftime('%H:%M:%S')
-
-    @classmethod
-    def get_earlier_time(cls, now):
-        return (now - timezone.timedelta(minutes=1)).strftime('%H:%M:%S')
 
     def test_default_list_view_should_return_restaurants_with_local_postal_code_when_request_without_postal_code(self):
         pass
@@ -20,20 +13,20 @@ class RestaurantDefaultListViewTests(TestCase):
     def test_default_list_view_should_only_return_restaurants_with_same_postal_code_when_request_with_postal_code(self):
         # Given
         postal_code = '01234'
-        same_postal_code_restaurant = Restaurant.objects.create(
-            is_franchise=True,
-            name='요기치킨-강남점',
-            address='서울시 요기구 요기동',
-            postal_code='01234',
-            minimum_order_price=14000,
-            open_time=timezone.localtime().min.strftime('%H:%M:%S'),
-            close_time=timezone.localtime().max.strftime('%H:%M:%S'),
-        )
         different_postal_code_restaurant = Restaurant.objects.create(
             is_franchise=True,
             name='요기짜장-서초점',
             address='서울시 요기구 기요동',
             postal_code='01233',
+            minimum_order_price=14000,
+            open_time=timezone.localtime().min.strftime('%H:%M:%S'),
+            close_time=timezone.localtime().max.strftime('%H:%M:%S'),
+        )
+        same_postal_code_restaurant = Restaurant.objects.create(
+            is_franchise=True,
+            name='요기치킨-강남점',
+            address='서울시 요기구 요기동',
+            postal_code='01234',
             minimum_order_price=14000,
             open_time=timezone.localtime().min.strftime('%H:%M:%S'),
             close_time=timezone.localtime().max.strftime('%H:%M:%S'),
@@ -55,13 +48,15 @@ class RestaurantDefaultListViewTests(TestCase):
         # Given
         postal_code = '01234'
         present_time = timezone.localtime()
+        earlier_time = present_time - timezone.timedelta(minutes=1)
+        later_time = present_time + timezone.timedelta(minutes=1)
         not_yet_opened_restaurant = Restaurant.objects.create(
             is_franchise=True,
             name='요기피자-서초점',
             address='서울시 요기구 기요동',
             postal_code='01234',
             minimum_order_price=14000,
-            open_time=self.get_later_time(present_time),
+            open_time=later_time.strftime('%H:%M:%S'),
             close_time=timezone.localtime().max.strftime('%H:%M:%S'),
         )
         already_closed_restaurant = Restaurant.objects.create(
@@ -71,15 +66,15 @@ class RestaurantDefaultListViewTests(TestCase):
             postal_code='01234',
             minimum_order_price=14000,
             open_time=timezone.localtime().min.strftime('%H:%M:%S'),
-            close_time=self.get_earlier_time(present_time),
+            close_time=earlier_time.strftime('%H:%M:%S'),
         )
         opened_restaurant = Restaurant.objects.create(
             name='요기버거-서초점',
             address='서울시 요기구 기요동',
             postal_code='01234',
             minimum_order_price=14000,
-            open_time=self.get_earlier_time(present_time),
-            close_time=self.get_later_time(present_time),
+            open_time=earlier_time.strftime('%H:%M:%S'),
+            close_time=later_time.strftime('%H:%M:%S'),
         )
 
         # When

@@ -20,6 +20,7 @@ class Restaurant(models.Model):
         max_length=20,
         null=False,
         default='미기입',
+        unique=True,
     )
     address = models.CharField(
         max_length=40,
